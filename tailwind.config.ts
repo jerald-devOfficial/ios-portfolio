@@ -9,11 +9,14 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "ios-wallpaper": "url('/images/ios17-wallpaper.png')"
       },
+      colors: {
+
+        "active-side-menu": "rgba(117, 201, 249, 0.87)"
+      }
     },
+    
   },
   plugins: [],
 };
