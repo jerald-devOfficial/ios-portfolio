@@ -28,27 +28,37 @@ const Mails = () => {
 
   const handleMailClick = async (mailId: string) => {
     // Mark the mail as selected
-    if (data && data.length > 0) {
-      const mailFind = data.find((mail) => mail._id === mailId)
-      if (mailFind) {
-        setSelectedMail(mailFind)
+    const mailFind = data?.find((mail) => mail._id === mailId)
+    if (mailFind) {
+      setSelectedMail(mailFind)
 
-        if (!mailFind.read) {
-          // PATCH request to mark the mail as read
-          try {
-            await fetch(`/api/contact/${mailId}`, {
-              method: 'PATCH',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ read: true })
-            })
+      if (!mailFind.read) {
+        // PATCH request to mark the mail as read
+        try {
+          const res = await fetch(`/api/contact/${mailId}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ read: true })
+          })
 
-            mutate()
-          } catch (error) {
-            console.error('Error marking mail as read:', error)
-            // Handle error, e.g., show error message to user
+          if (!res.ok) {
+            throw new Error(
+              `Failed to mark mail as read. Status: ${res.status}`
+            )
           }
+
+          // Get the updated mail data from the res
+          const updatedMailData = await res.json()
+
+          // Update selected mail with the updated data
+          setSelectedMail(updatedMailData)
+
+          mutate()
+        } catch (error) {
+          console.error('Error marking mail as read:', error)
+          // Handle error, e.g., show error message to user
         }
       }
     }
@@ -60,13 +70,26 @@ const Mails = () => {
       if (mailFind) {
         setSelectedMail(mailFind)
         if (mailFind.read) {
-          await fetch(`/api/contact/${mailId}`, {
+          const res = await fetch(`/api/contact/${mailId}`, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({ unread: true })
           })
+
+          if (!res.ok) {
+            throw new Error(
+              `Failed to mark mail as read. Status: ${res.status}`
+            )
+          }
+
+          // Get the updated mail data from the res
+          const updatedMailData = await res.json()
+
+          // Update selected mail with the updated data
+          setSelectedMail(updatedMailData)
+
           // Call mutate to update the data after making changes
           mutate()
         }

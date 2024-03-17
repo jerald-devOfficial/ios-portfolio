@@ -81,7 +81,7 @@ const BlogPage = () => {
   )
 
   const handleNextPage = async () => {
-    await setCurrentPage(nextPage)
+    setCurrentPage(nextPage)
     mutate()
   }
 
