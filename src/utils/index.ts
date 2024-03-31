@@ -56,3 +56,68 @@ export const formatDate = (createdAt: Date) => {
     return format(parsedDate, 'MM/d/yy');
   }
 };
+
+export const fetchExchangeRateFromAPI = async (
+  from: string,
+  to: string
+): Promise<number> => {
+  try {
+    const response = await fetch(
+      `https://api.coingecko.com/api/v3/simple/price?ids=${from}&vs_currencies=${to}`
+    )
+    const data = await response.json()
+    const exchangeRate = data[from.toLowerCase()][to.toLowerCase()]
+    return exchangeRate
+  } catch (error) {
+    console.error('Error fetching exchange rate:', error)
+    return 0
+  }
+}
+
+export const classNames = (...classes: string[])  => {
+  return classes.filter(Boolean).join(' ')
+}
+
+export const formatEthValue = (value: number): string => {
+  // Convert value to string and split it into integer and decimal parts
+  const [integerPart, decimalPart] = value.toString().split('.');
+
+  // If there is no decimal part or if it's shorter than 4 digits, return the original value
+  if (!decimalPart || decimalPart.length <= 4) {
+    return value.toFixed(4);
+  }
+
+  // Otherwise, return the first 4 digits of the decimal part appended to the integer part
+  return `${integerPart}.${decimalPart.slice(0, 4)}`;
+};
+
+
+export const hashShortener = (hash: string, limiterStart: number, limiterEnd?: number ): string  => {
+  return hash.slice(0, limiterStart) + '...' + hash.slice(-(limiterEnd ?? limiterStart))
+}
+
+export const toFixedFour = (val: number | string): string => {
+  if (typeof val === 'number') {
+    return val.toFixed(4);
+  } else if (typeof val === 'string') {
+    const parsedValue = parseFloat(val);
+    if (!isNaN(parsedValue)) {
+      return parsedValue.toFixed(4);
+    }
+  }
+  // Return an empty string or throw an error, depending on your requirement
+  return '';
+};
+
+export const copyAddressToClipboard = (hash: string) => {
+  if (hash) {
+    navigator.clipboard
+      .writeText(hash)
+      .then(() => {
+        alert('Address copied to clipboard')
+      })
+      .catch((error) => {
+        console.error('Error copying address:', error)
+      })
+  }
+}

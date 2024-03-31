@@ -7,6 +7,7 @@ import {
   GitHubIcon,
   LinkedInIcon,
   MailIcon,
+  MetaMaskIcon,
   PortfolioIcon
 } from '@/components/svg-icons'
 import Link from 'next/link'
@@ -26,6 +27,10 @@ const footer = [
   {
     path: '/blog',
     icon: BlogIcon
+  },
+  {
+    path: '/web3',
+    icon: MetaMaskIcon
   },
   {
     path: '/contact-me',

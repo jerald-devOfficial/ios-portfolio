@@ -2,7 +2,13 @@ import { ReactNode } from 'react'
 import { Raleway } from 'next/font/google'
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { BlogIcon, HomeIcon, MailIcon, PortfolioIcon } from '../svg-icons'
+import {
+  BlogIcon,
+  HomeIcon,
+  MailIcon,
+  MetaMaskIcon,
+  PortfolioIcon
+} from '../svg-icons'
 import { usePathname } from 'next/navigation'
 import AuthButton from '../AuthButton'
 
@@ -51,6 +57,10 @@ const Layout = ({ children }: Readonly<{ children: ReactNode }>) => {
     {
       path: '/blog',
       icon: BlogIcon
+    },
+    {
+      path: '/web3',
+      icon: MetaMaskIcon
     },
     {
       path: '/contact-me',
