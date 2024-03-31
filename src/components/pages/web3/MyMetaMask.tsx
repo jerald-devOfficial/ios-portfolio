@@ -56,17 +56,28 @@ const MyMetaMask = () => {
     const fetchAccountInfo = async () => {
       try {
         setIsLoading(true)
-        const response = await fetch('/api/metamask')
-        if (!response.ok) {
-          throw new Error('Failed to fetch account info')
-        }
-        const data = await response.json()
-        setAccount(data.account)
-        setEthBalanceInEther(data.ethBalanceInEther)
-        setEthBalanceInUSD(data.ethBalanceInUSD)
+        // Initialize Web3 with Infura provider (replace 'YOUR_INFURA_PROJECT_ID' with your actual Infura project ID)
+        const web3 = new Web3(process.env.NEXT_PUBLIC_INFURA_ID)
+
+        const metamaskAddress = process.env.NEXT_PUBLIC_METAMASK_ADDRESS
+
+        // Fetch ETH balance
+        const ethBalance = await web3.eth.getBalance(metamaskAddress!)
+        const ethBalanceInEther = web3.utils.fromWei(ethBalance, 'ether')
+        setAccount(metamaskAddress!)
+        setEthBalanceInEther(ethBalanceInEther)
+
+        // Fetch exchange rate for ETH to USD
+        const ethToUSD = await fetchExchangeRateFromAPI('ethereum', 'usd')
+        const ethBalanceInUSD = (
+          parseFloat(ethBalanceInEther) * ethToUSD
+        ).toFixed(2)
+        setEthBalanceInUSD(ethBalanceInUSD)
       } catch (error) {
         console.error('Error fetching account info:', error)
-        setError('Error fetching account info')
+        setError(
+          `Error fetching my account's info from WalletConnect and MetaMask.`
+        )
       } finally {
         setIsLoading(false)
       }
