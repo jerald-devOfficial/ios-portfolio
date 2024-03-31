@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 
 export async function GET() {
   try {
-    const apiKey = process.env.NEWS_DATA_API_KEY;
+    const apiKey = process.env.NEXT_PUBLIC_NEWS_DATA_API_KEY;
     const apiUrl = `https://newsdata.io/api/1/news?apikey=${apiKey}&q=Programming,%20software%20development,%20Technology`;
     const response = await fetch(apiUrl);
     if (!response.ok) {

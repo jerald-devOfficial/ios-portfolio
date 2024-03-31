@@ -8,7 +8,7 @@ export async function GET(request: Request,
     { params }: { params: IParams }) {
     try {
       const { nextPage } = params
-      const apiKey = process.env.NEWS_DATA_API_KEY;
+      const apiKey = process.env.NEXT_PUBLIC_NEWS_DATA_API_KEY;
       const apiUrl = `https://newsdata.io/api/1/news?apikey=${apiKey}&q=Programming,%20software%20development,%20Technology&page=${nextPage}`;
       const response = await fetch(apiUrl);
   

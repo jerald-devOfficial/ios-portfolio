@@ -1,13 +1,11 @@
-'use server'
-
 import { fetchExchangeRateFromAPI } from "@/utils"
 import { NextResponse } from "next/server"
 import Web3 from 'web3'
 
 export async function GET() {
     try {
-        const web3 = new Web3(process.env.INFURA_ID) // Initialize Web3 with Infura provider
-        const metamaskAddress = process.env.METAMASK_ADDRESS
+        const web3 = new Web3(process.env.NEXT_PUBLIC_INFURA_ID) // Initialize Web3 with Infura provider
+        const metamaskAddress = process.env.NEXT_PUBLIC_METAMASK_ADDRESS
     
         // Fetch ETH balance
         const ethBalance = await web3.eth.getBalance(metamaskAddress!)
