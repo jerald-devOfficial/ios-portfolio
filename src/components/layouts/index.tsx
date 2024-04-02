@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   description: `Discover Jerald's portfolio and his latest web app projects, a Next.js developer with expertise in React.js, Next.js, and full-stack development. Browse software engineering articles and tutorials for tips on creating web applications.`,
   twitter: {
     images: {
-      url: 'https://www.jeraldbaroro.xyz/images/logo.png',
+      url: `${process.env.NEXT_PUBLIC_APP_URL}/images/logo.png`,
       alt: "JB - Jerald Baroro's Next.js portfolio",
       type: 'image/png',
       width: 300,
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: title,
     images: {
-      url: 'https://www.jeraldbaroro.xyz/images/logo.png',
+      url: `${process.env.NEXT_PUBLIC_APP_URL}/images/logo.png`,
       alt: "JB - Jerald Baroro's Next.js portfolio",
       type: 'image/png',
       width: 300,

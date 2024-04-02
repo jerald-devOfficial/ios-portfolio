@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     "Explore Jerald's Next.js developer portfolio and discover the latest web app projects and software engineering articles.",
   twitter: {
     images: {
-      url: 'https://www.jeraldbaroro.xyz/images/logo.png',
+      url: `${process.env.NEXT_PUBLIC_APP_URL}/images/logo.png`,
       alt: "JB - Jerald Baroro's Next.js portfolio",
       type: 'image/png',
       width: 300,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: title,
     images: {
-      url: 'https://www.jeraldbaroro.xyz/images/logo.png',
+      url: `${process.env.NEXT_PUBLIC_APP_URL}/images/logo.png`,
       alt: "JB - Jerald Baroro's Next.js portfolio",
       type: 'image/png',
       width: 300,
